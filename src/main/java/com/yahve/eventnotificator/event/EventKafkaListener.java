@@ -23,4 +23,3 @@ public class EventKafkaListener {
     notificationService.createNotifications(eventRecord.value());
   }
 }
-

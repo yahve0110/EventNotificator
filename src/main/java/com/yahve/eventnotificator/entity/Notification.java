@@ -42,4 +42,3 @@ public class Notification {
     this.fieldChanges.add(change);
   }
 }
-

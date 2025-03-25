@@ -31,4 +31,3 @@ public class NotificationFieldChange {
   @Column(name = "new_value")
   private String newValue;
 }
-
