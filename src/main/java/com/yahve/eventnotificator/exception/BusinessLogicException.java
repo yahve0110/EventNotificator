@@ -11,5 +11,4 @@ public class BusinessLogicException extends RuntimeException {
     super(message);
     this.status = status;
   }
-
 }

@@ -48,5 +48,4 @@ public class JwtTokenManager {
       .getPayload()
       .get("role", String.class);
   }
-
 }

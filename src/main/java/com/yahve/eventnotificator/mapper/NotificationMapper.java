@@ -5,9 +5,7 @@ import com.yahve.eventnotificator.entity.Notification;
 import com.yahve.eventnotificator.entity.NotificationFieldChange;
 import com.yahve.eventnotificator.event.KafkaEventMessage;
 import org.springframework.stereotype.Component;
-
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 
 @Component
@@ -61,8 +59,6 @@ public class NotificationMapper {
         case "status" -> dto.setStatus(changeDto);
       }
     }
-
     return dto;
   }
 }
-

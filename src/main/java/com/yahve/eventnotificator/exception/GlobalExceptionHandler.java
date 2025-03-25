@@ -120,6 +120,4 @@ public class GlobalExceptionHandler {
       .status(HttpStatus.FORBIDDEN)
       .body(errorDto);
   }
-
-
 }

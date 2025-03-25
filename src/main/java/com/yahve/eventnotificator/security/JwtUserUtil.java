@@ -9,4 +9,3 @@ public class JwtUserUtil {
     return (Long) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
   }
 }
-

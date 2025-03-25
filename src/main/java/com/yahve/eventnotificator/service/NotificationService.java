@@ -66,6 +66,4 @@ public class NotificationService {
   public int deleteNotificationsBefore(LocalDateTime threshold) {
     return notificationRepository.deleteByCreatedAtBefore(threshold);
   }
-
-
 }

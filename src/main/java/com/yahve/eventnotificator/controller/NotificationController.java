@@ -17,9 +17,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class NotificationController {
 
+  private static final Logger logger = LoggerFactory.getLogger(NotificationController.class);
   private final NotificationService notificationService;
   private final JwtUserUtil jwtUserUtil;
-  private static final Logger logger = LoggerFactory.getLogger(NotificationController.class);
 
   @GetMapping
   public ResponseEntity<List<NotificationDto>> getUserNotifications() {
@@ -35,12 +35,10 @@ public class NotificationController {
     return ResponseEntity.ok(notifications);
   }
 
-
   @PostMapping
   public ResponseEntity<String> markAsRead(@RequestBody MarkNotificationDto request) {
     Long userId = jwtUserUtil.getCurrentUserId();
     notificationService.markAsRead(userId, request.notificationIds());
     return ResponseEntity.ok("Notifications marked as read");
   }
-
 }
