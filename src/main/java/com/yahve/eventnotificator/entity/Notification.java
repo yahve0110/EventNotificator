@@ -34,5 +34,12 @@ public class Notification {
   @Builder.Default
   @OneToMany(mappedBy = "notification", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<NotificationFieldChange> fieldChanges = new ArrayList<>();
+
+  public void addFieldChange(NotificationFieldChange change) {
+    if (change == null) return;
+
+    change.setNotification(this);
+    this.fieldChanges.add(change);
+  }
 }
 

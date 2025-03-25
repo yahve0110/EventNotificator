@@ -19,7 +19,6 @@ public class NotificationMapper {
       .eventId(msg.getEventId())
       .createdAt(LocalDateTime.now())
       .read(false)
-      .fieldChanges(new ArrayList<>())
       .build();
 
     addFieldChangeIfPresent(notification, "name", msg.getName());
@@ -36,13 +35,12 @@ public class NotificationMapper {
   private <T> void addFieldChangeIfPresent(Notification notification, String fieldName, KafkaEventMessage.FieldChange<T> change) {
     if (change != null) {
       NotificationFieldChange fieldChange = NotificationFieldChange.builder()
-        .notification(notification)
         .fieldName(fieldName)
         .oldValue(change.getOldValue().toString())
         .newValue(change.getNewValue().toString())
         .build();
 
-      notification.getFieldChanges().add(fieldChange);
+      notification.addFieldChange(fieldChange);
     }
   }
 
@@ -66,5 +64,5 @@ public class NotificationMapper {
 
     return dto;
   }
-
 }
+

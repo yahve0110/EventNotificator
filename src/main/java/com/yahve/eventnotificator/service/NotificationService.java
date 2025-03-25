@@ -10,9 +10,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -24,9 +23,6 @@ public class NotificationService {
   private static final Logger logger = LoggerFactory.getLogger(NotificationService.class);
   private final NotificationRepository notificationRepository;
   private final NotificationMapper notificationMapper;
-
-  @Value("${notification.cleanup.days}")
-  private int cleanupDays;
 
   @Transactional
   public void createNotifications(KafkaEventMessage message) {
@@ -66,18 +62,10 @@ public class NotificationService {
     notificationRepository.saveAll(filtered);
   }
 
-
-  @Scheduled(cron = "${scheduler.notification-cleanup-cron}")
   @Transactional
-  public void deleteOldNotifications() {
-
-    LocalDateTime threshold = LocalDateTime.now().minusDays(cleanupDays);
-
-    logger.info("Deleting notifications created before {}", threshold);
-
-    int deletedCount = notificationRepository.deleteByCreatedAtBefore(threshold);
-
-    logger.info("Deleted {} old notifications", deletedCount);
+  public int deleteNotificationsBefore(LocalDateTime threshold) {
+    return notificationRepository.deleteByCreatedAtBefore(threshold);
   }
+
 
 }

@@ -29,11 +29,18 @@ public class SecurityConfig {
       .csrf(AbstractHttpConfigurer::disable)
       .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
       .authorizeHttpRequests(auth -> auth
-        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+        .requestMatchers(
+          "/swagger-ui/**",
+          "/v3/api-docs/**",
+          "/swagger-resources/**",
+          "/webjars/**",
+          "/event-notificator-openapi.yaml"
+        ).permitAll()
         .requestMatchers(HttpMethod.GET, "/notifications").hasAnyRole("USER", "ADMIN")
         .requestMatchers(HttpMethod.POST, "/notifications").hasAnyRole("USER", "ADMIN")
         .anyRequest().authenticated()
       )
+
       .exceptionHandling(e -> e
         .authenticationEntryPoint(customAuthenticationEntryPoint)
         .accessDeniedHandler(customAccessDeniedHandler)
